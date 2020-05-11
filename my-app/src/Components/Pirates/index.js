@@ -3,7 +3,7 @@ import "./style.css";
 
 function Pirates(props) {
     return (
-        <div className="Container">
+        <div className="card">
         <div className="img-container">
             <img alt={props.name} src={props.image} />
             <div onClick={() => props.shuffle(props.id)}></div>
