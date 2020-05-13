@@ -2,9 +2,9 @@ import React from "react";
 import "./style.css";
 
 function Scoreboard(props) {
-    return <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    return <nav className="header">
         <ul>
-            <li className="brand">
+            <li>
                 <a href="/">Clicky Game</a>
             </li>
             <li>{props.correct}</li>

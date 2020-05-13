@@ -9,31 +9,36 @@ import "./App.css";
 class App extends Component {
   state = {
     pirates,
-    shuffledPirates: [],
     score: 0,
     topScore: 0,
     correct: "Click on an image to begin!"
   };
 
-  
+  handleShuffle() {
+    this.setState({pirates: this.state.shuffle(pirates)});
+  }
 
   render() {
     return (
-      <Wrapper>
+      <div>
         <Scoreboard
           correct={this.state.correct}
           score={this.state.score}
           topScore={this.state.topScore}
         />
-        <Jumbotron/>
-    
-        
+        <Jumbotron />
 
-        {this.state.pirates.map(pirate => (
-          
-          <Pirates id={pirate.id} name={pirate.name} image={pirate.image} />
-        ))}
-      </Wrapper>
+        <Wrapper>
+          {this.state.pirates.map(pirate => (
+            <Pirates
+              id={pirate.id}
+              name={pirate.name}
+              image={pirate.image}
+              shuffle={this.handleShuffle}
+            />
+          ))}
+        </Wrapper>
+      </div>
     );
   }
 }
