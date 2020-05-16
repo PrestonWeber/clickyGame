@@ -15,8 +15,6 @@ class App extends Component {
     correct: "Click on an image to begin!"
   };
 
-
-
   handleShuffle = () => {
     for (let i = this.state.pirates.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -27,16 +25,18 @@ class App extends Component {
     }
 
     this.setState({ pirates: this.state.pirates });
-
-    
   };
 
   calculateScore = id => {
-    const clicked = this.state.pirates.filter(pirate => pirate.id === id);
-    this.setState({ clickedPirates: this.state.clickedPirates.unshift(clicked)})
+    const clicked = this.state.pirates.filter(pirate => pirate.name === id);
+    this.state.clickedPirates.push(clicked);
+    this.setState({
+      clickedPirates: this.state.clickedPirates
+    });
+
+    console.log(this.state.pirates);
     console.log(this.state.clickedPirates);
-    
-  }
+  };
 
   render() {
     return (
@@ -51,11 +51,10 @@ class App extends Component {
         <Wrapper>
           {this.state.pirates.map(pirate => (
             <Pirates
-              id={pirate.id}
-              key={pirate.id}
+            
               name={pirate.name}
               image={pirate.image}
-              shuffle={this.handleShuffle}
+              shuffle={this.calculateScore}
             />
           ))}
         </Wrapper>
