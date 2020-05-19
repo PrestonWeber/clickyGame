@@ -26,11 +26,12 @@ class App extends Component {
 
   shuffleArray = a => {
     var b, c;
-    for (b = a.length - 1; b > 0; b--) {
-      c = Math.floor(Math.random() * (b + 1));
+    for(b = a.length -1; b > 0; b--) {
+      c = Math.floor(Math.random() * (b +1));
       a[b] = a[c];
       a[c] = a[b];
     }
+      
     return a;
   };
 
@@ -68,7 +69,7 @@ class App extends Component {
       <div>
         <Scoreboard
           correct={this.state.correct}
-          score={this.state.clickedChar.length}
+          score={this.state.score}
           topScore={this.state.topScore}
         />
         <Jumbotron />
