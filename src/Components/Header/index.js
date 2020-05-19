@@ -1,9 +1,9 @@
 import React from "react";
 
-function JumboTron() {
+function JumboTron(props) {
     return (
         <div className="jumbotron">
-            <h1>Click on an image to begin</h1>
+           <h1>{props.correct}</h1> 
         </div>
     )
 }

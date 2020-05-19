@@ -69,11 +69,10 @@ class App extends Component {
     return (
       <div>
         <Scoreboard
-          correct={this.state.correct}
           score={this.state.clickedChar.length}
           topScore={this.state.topScore}
         />
-        <Jumbotron />
+        <Jumbotron correct={this.state.correct} />
 
         <Wrapper>
           {this.state.characters.map(pir => (
