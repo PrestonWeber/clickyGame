@@ -1,9 +1,13 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import App from "./App";
+import ReactDOM from "react-dom";
+import expect from "chai"
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+
+const shuffle = new App()
+
+it("shuffles", () => {
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  expect(shuffle.shuffleArray(arr).to.equal(arr));
 });

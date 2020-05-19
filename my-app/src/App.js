@@ -1,41 +1,66 @@
 import React, { Component } from "react";
-import Pirates from "./Components/Pirates";
+import Characters from "./Components/Characters";
 import Scoreboard from "./Components/Scoreboard";
 import Wrapper from "./Components/Wrapper";
 import Jumbotron from "./Components/Header";
-import pirates from "./onePiece.json";
+import characters from "./onePiece.json";
 import "./App.css";
 
 class App extends Component {
   state = {
-    pirates,
-    clickedPirates: [],
-    score: 0,
+    characters,
+    clickedChar: [],
     topScore: 0,
     correct: "Click on an image to begin!"
   };
 
-  handleShuffle = () => {
-    for (let i = this.state.pirates.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [this.state.pirates[i], this.state.pirates[j]] = [
-        this.state.pirates[j],
-        this.state.pirates[i]
-      ];
-    }
-
-    this.setState({ pirates: this.state.pirates });
+  handleClicked = id => {
+    const name = id.target.attributes.getNamedItem("name").value;
+    this.handleShuffle();
+    this.checkGuess(name, this.updateTopScore);
   };
 
-  calculateScore = id => {
-    const clicked = this.state.pirates.filter(pirate => pirate.name === id);
-    this.state.clickedPirates.push(clicked);
-    this.setState({
-      clickedPirates: this.state.clickedPirates
-    });
+  handleShuffle = () => {
+    this.setState({ characters: this.shuffleArray(this.state.characters) });
+  };
 
-    console.log(this.state.pirates);
-    console.log(this.state.clickedPirates);
+  shuffleArray = a => {
+    var b, c;
+    for (b = a.length - 1; b > 0; b--) {
+      c = Math.floor(Math.random() * (b + 1));
+      a[b] = a[c];
+      a[c] = a[b];
+    }
+    return a;
+  };
+
+  checkGuess = (name, cb) => {
+    const newState = { ...this.state };
+    if (newState.clickedChar.includes(name)) {
+      newState.correct = `You already picked ${name}`;
+      newState.clickedChar = [];
+      this.setState((this.state = newState));
+    } else {
+      newState.clickedChar.push(name);
+      newState.correct = `Correct!`;
+    }
+    cb(newState, this.alertWin);
+  };
+
+  updateTopScore = (newState, cb) => {
+    if (newState.clickedChar.length > newState.topScore) {
+      newState.topScore++;
+      this.setState((this.state = newState));
+    }
+    cb(newState);
+  };
+
+  alertWin = newState => {
+    if (newState.clickedChar.length === 12) {
+      newState.correct = "You win!";
+      newState.clickedChar = [];
+      this.setState((this.state = newState));
+    }
   };
 
   render() {
@@ -43,18 +68,19 @@ class App extends Component {
       <div>
         <Scoreboard
           correct={this.state.correct}
-          score={this.state.score}
+          score={this.state.clickedChar.length}
           topScore={this.state.topScore}
         />
         <Jumbotron />
 
         <Wrapper>
-          {this.state.pirates.map(pirate => (
-            <Pirates
-            
-              name={pirate.name}
-              image={pirate.image}
-              shuffle={this.calculateScore}
+          {this.state.characters.map(pir => (
+            <Characters
+              id={pir.id}
+              key={pir.id}
+              name={pir.name}
+              image={pir.image}
+              handleClicked={this.handleClicked}
             />
           ))}
         </Wrapper>
