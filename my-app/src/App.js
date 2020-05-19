@@ -14,25 +14,26 @@ class App extends Component {
     correct: "Click on an image to begin!"
   };
 
-  handleClicked = id => {
-    const name = id.target.attributes.getNamedItem("name").value;
+  handleClicked = name => {
     this.handleShuffle();
     this.checkGuess(name, this.updateTopScore);
   };
 
   handleShuffle = () => {
-    this.setState({ characters: this.shuffleArray(this.state.characters) });
+    this.setState(
+      (this.state.characters = this.shuffleArray(this.state.characters))
+    );
   };
 
-  shuffleArray = a => {
-    var b, c;
-    for(b = a.length -1; b > 0; b--) {
-      c = Math.floor(Math.random() * (b +1));
-      a[b] = a[c];
-      a[c] = a[b];
+  shuffleArray = arr => {
+    var a, b, c;
+    for (a = arr.length - 1; a > 0; a--) {
+      b = Math.floor(Math.random() * (a + 1));
+      c = arr[a];
+      arr[a] = arr[b];
+      arr[b] = c;
     }
-      
-    return a;
+    return arr;
   };
 
   checkGuess = (name, cb) => {
@@ -69,7 +70,7 @@ class App extends Component {
       <div>
         <Scoreboard
           correct={this.state.correct}
-          score={this.state.score}
+          score={this.state.clickedChar.length}
           topScore={this.state.topScore}
         />
         <Jumbotron />

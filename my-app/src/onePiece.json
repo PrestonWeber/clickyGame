@@ -1,61 +1,49 @@
 [
     {
-        "id": 0,
         "name": "Luffy",
         "image": "../images/Luffy.png"
     },
     {
-        "id": 1,
         "name": "Zoro",
         "image": "../images/Roronoa_Zoro.jpg"
     },
     {
-        "id": 2,
         "name": "Nami",
         "image": "../images/Nami.png"
     },
     {
-        "id": 3,
         "name": "Sanji",
         "image": "../images/Sanji.jpeg"
     },
     {
-        "id": 4,
         "name": "Chopper",
         "image": "../images/chopper.png"
     },
     {
-        "id": 5,
         "name": "Robin",
         "image": "../images/Robin.png"
     },
     {
-        "id": 6,
         "name": "Franky",
         "image": "../images/Franky.png"
     },
     {
-        "id": 7,
         "name": "Brooke",
         "image": "../images/Brooke.png"
     },
     {
-        "id": 8,
         "name": "Jinbei",
         "image": "../images/Jinbe.png"
     },
     {
-        "id": 9,
         "name": "Sabo",
         "image": "../images/Sabo.png"
     },
     {
-        "id": 10,
-         "name": "Ace",
+        "name": "Ace",
         "image": "../images/Ace.png"
     },
     {
-        "id": 11,
         "name": "Shanks",
         "image": "../images/Shanks.jpg"
     }
