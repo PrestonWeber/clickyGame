@@ -8,7 +8,7 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    characters,
+    characters: characters,
     clickedChar: [],
     topScore: 0,
     correct: "Click on an image to begin!"
@@ -42,9 +42,12 @@ class App extends Component {
       newState.correct = `You already picked ${name}`;
       newState.clickedChar = [];
       this.setState((this.state = newState));
+      
     } else {
       newState.clickedChar.push(name);
       newState.correct = `Correct!`;
+      this.setState((this.state = newState));
+      
     }
     cb(newState, this.alertWin);
   };
