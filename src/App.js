@@ -11,7 +11,7 @@ class App extends Component {
     characters: characters,
     clickedChar: [],
     topScore: 0,
-    correct: "Click on an image to begin!"
+    banner: "Click on an image to begin!"
   };
 
   handleClicked = name => {
@@ -37,15 +37,15 @@ class App extends Component {
   };
 
   checkGuess = (name, cb) => {
-    const newState = { ...this.state };
+    let newState = { ...this.state };
     if (newState.clickedChar.includes(name)) {
-      newState.correct = `You already picked ${name}`;
+      newState.banner = `You already picked ${name}`;
       newState.clickedChar = [];
       this.setState((this.state = newState));
       
     } else {
       newState.clickedChar.push(name);
-      newState.correct = `Correct!`;
+      newState.banner = `Correct!`;
       this.setState((this.state = newState));
       
     }
@@ -62,7 +62,7 @@ class App extends Component {
 
   alertWin = newState => {
     if (newState.clickedChar.length === 12) {
-      newState.correct = "You win!";
+      newState.banner = "You win!";
       newState.clickedChar = [];
       this.setState((this.state = newState));
     }
@@ -75,7 +75,7 @@ class App extends Component {
           score={this.state.clickedChar.length}
           topScore={this.state.topScore}
         />
-        <Jumbotron correct={this.state.correct} />
+        <Jumbotron banner={this.state.banner} />
 
         <Wrapper>
           {this.state.characters.map(pir => (
