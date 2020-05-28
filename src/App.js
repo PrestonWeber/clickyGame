@@ -11,7 +11,7 @@ class App extends Component {
     characters: characters,
     clickedChar: [],
     topScore: 0,
-    banner: "Click on an image to begin!"
+    banner: "Click on an image to begin, try not to click the same character twice."
   };
 
   handleClicked = name => {
@@ -39,12 +39,12 @@ class App extends Component {
   checkGuess = name => {
     let newState = { ...this.state };
     if (newState.clickedChar.includes(name)) {
-      newState.banner = `You already picked ${name}`;
+      newState.banner = `You already guessed ${name}`;
       newState.clickedChar = [];
       this.setState((this.state = newState));
     } else {
       newState.clickedChar.push(name);
-      newState.banner = `Correct!`;
+      newState.banner = `You guessed Correctly!`;
       this.setState((this.state = newState));
     }
     this.updateTopScore(newState);
