@@ -16,12 +16,12 @@ class App extends Component {
 
   handleClicked = name => {
     this.handleShuffle();
-    this.checkGuess(name, this.updateTopScore);
+    this.checkGuess(name);
   };
 
   handleShuffle = () => {
     this.setState(
-      (this.state.characters = this.shuffleArray(this.state.characters))
+      this.state.characters = this.shuffleArray(this.state.characters)
     );
   };
 
@@ -36,7 +36,7 @@ class App extends Component {
     return arr;
   };
 
-  checkGuess = (name, cb) => {
+  checkGuess = name => {
     let newState = { ...this.state };
     if (newState.clickedChar.includes(name)) {
       newState.banner = `You already picked ${name}`;
@@ -49,15 +49,17 @@ class App extends Component {
       this.setState((this.state = newState));
       
     }
-    cb(newState, this.alertWin);
+    this.updateTopScore(newState);
   };
 
-  updateTopScore = (newState, cb) => {
+  
+
+  updateTopScore = newState => {
     if (newState.clickedChar.length > newState.topScore) {
       newState.topScore++;
       this.setState((this.state = newState));
     }
-    cb(newState);
+    this.alertWin(newState);
   };
 
   alertWin = newState => {
