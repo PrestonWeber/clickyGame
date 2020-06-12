@@ -7,25 +7,26 @@ import characters from "./onePiece.json";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    characters: characters,
-    clickedChar: [],
-    topScore: 0,
-    banner: "Click on an image to begin, try not to click the same character twice."
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      characters: characters,
+      clickedChar: [],
+      topScore: 0,
+      banner: `Click on an image to begin, try not to click the same character twice.`
+    };
+  }
 
-  handleClicked = name => {
+  handleClicked(name) {
     this.handleShuffle();
     this.checkGuess(name);
-  };
+  }
 
-  handleShuffle = () => {
-    this.setState(
-      (this.state.characters = this.shuffleArray(this.state.characters))
-    );
-  };
+  handleShuffle() {
+    this.setState({ characters: this.shuffleArray(this.state.characters) });
+  }
 
-  shuffleArray = arr => {
+  shuffleArray(arr) {
     var a, b, c;
     for (a = arr.length - 1; a > 0; a--) {
       b = Math.floor(Math.random() * (a + 1));
@@ -34,37 +35,38 @@ class App extends Component {
       arr[b] = c;
     }
     return arr;
-  };
+  }
 
-  checkGuess = name => {
-    let newState = { ...this.state };
-    if (newState.clickedChar.includes(name)) {
-      newState.banner = `You already guessed ${name}`;
-      newState.clickedChar = [];
-      this.setState((this.state = newState));
+
+  checkGuess(name) {
+    if (this.state.clickedChar.includes(name)) {
+      this.setState({ banner: `You already guessed ${name}`, clickedChar: [] });
     } else {
-      newState.clickedChar.push(name);
-      newState.banner = `You guessed Correctly!`;
-      this.setState((this.state = newState));
+      let clickedChar = this.state.clickedChar;
+      clickedChar.push(name);
+      this.setState({
+        clickedChar: clickedChar,
+        banner: `You guessed Correctly!`
+      });
     }
-    this.updateTopScore(newState);
-  };
+    this.updateTopScore();
+  }
 
-  updateTopScore = newState => {
-    if (newState.clickedChar.length > newState.topScore) {
-      newState.topScore++;
-      this.setState((this.state = newState));
-    }
-    this.alertWin(newState);
-  };
 
-  alertWin = newState => {
-    if (newState.clickedChar.length === this.state.characters.length) {
-      newState.banner = "You win!";
-      newState.clickedChar = [];
-      this.setState((this.state = newState));
+  updateTopScore() {
+    if (this.state.clickedChar.length > this.state.topScore) {
+      this.setState({ topScore: this.state.topScore + 1 });
     }
-  };
+    this.alertWin();
+  }
+
+
+  alertWin() {
+    if (this.state.clickedChar.length === this.state.characters.length) {
+      this.setState({ banner: "You Win!" });
+      this.setState({ clickedChar: [] });
+    }
+  }
 
   render() {
     return (
@@ -78,11 +80,10 @@ class App extends Component {
         <Wrapper>
           {this.state.characters.map(pir => (
             <Characters
-              id={pir.id}
-              key={pir.id}
+              key={pir.name}
               name={pir.name}
               image={pir.image}
-              handleClicked={this.handleClicked}
+              handleClicked={name => this.handleClicked(name)}
             />
           ))}
         </Wrapper>
